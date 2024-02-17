@@ -40,7 +40,6 @@ export const StylesSettings = StyleSheet.create({
   },
   InputButtom:{
     height: 50,
-    
     borderRadius: 30,
     alignItems:'center',
     justifyContent:'center',

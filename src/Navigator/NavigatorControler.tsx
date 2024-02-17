@@ -21,9 +21,9 @@ export const NavigatorControler = () => {
             headerShown: false,
         }}
     >
+      <Stack.Screen name = "CreateCountScreen" component={ CreateCountScreen } />
       <Stack.Screen name = "LoginScreen" component={ LoginScreen } />  
       <Stack.Screen name = "HomeScreen" component={ HomeScreen } />
-      <Stack.Screen name = "CreateCountScreen" component={ CreateCountScreen } />
     </Stack.Navigator>
   );
 }

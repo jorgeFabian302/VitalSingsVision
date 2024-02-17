@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import { Text, TextInput, View, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react';
+import { Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { StylesSettings } from '../Styles/StylesSettings'
+import { StylesSettings } from '../Styles/StylesSettings';
 import { PresentationBox } from '../Components/PresentationBox';
 
 export const LoginScreen = () => {
     const [User, setUser] = useState('');
     const [Password, setPassword] = useState('');
-
 
     return (
         <View style={StylesSettings.mainContainer}>
