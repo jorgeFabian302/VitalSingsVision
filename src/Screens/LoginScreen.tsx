@@ -26,7 +26,7 @@ export const LoginScreen = () => {
                     onChangeText={setPassword}
                     secureTextEntry={true}
                 />
-                <TouchableOpacity >
+                <TouchableOpacity activeOpacity={1}>
                     <Text style={StylesSettings.SubText}>¿Olvidaste tu contraseña?</Text>
                 </TouchableOpacity>
                 <View style={StylesSettings.ContainerButton}>
@@ -41,7 +41,7 @@ export const LoginScreen = () => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity activeOpacity={1}>
                     <Text style={StylesSettings.SubText}>¿No tienes cuenta? Registrate aquí.</Text>
                 </TouchableOpacity>
             </View>

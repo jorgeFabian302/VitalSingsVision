@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native';
+import { Dimensions, StyleSheet} from 'react-native';
 
 export const StylesSettings = StyleSheet.create({
 
@@ -7,6 +7,7 @@ export const StylesSettings = StyleSheet.create({
     backgroundColor: '#FFFEFB',
   },
   Container:{
+    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -35,8 +36,9 @@ export const StylesSettings = StyleSheet.create({
   },
   ContainerButton:{
     flex: 1,
-    width: '75%',
-    padding: 50,
+    width: '60%',
+    marginTop: 30,
+    height: 40,
   },
   InputButtom:{
     height: 50,
@@ -53,5 +55,18 @@ export const StylesSettings = StyleSheet.create({
   SubText:{
     fontSize: 17,
     color:'#ADACAA'
-  }
+  },
+  dropdown: {
+    width: Dimensions.get('window').width * 0.8, // Utiliza porcentaje en lugar de dimensiones fijas
+    height: 50,
+    backgroundColor: '#F5F4F1',
+    marginBottom: 20,
+    paddingLeft: 10,
+    borderRadius: 30,
+    marginTop: 20,
+  },
+  PikckerStyle: {
+    fontSize: 20, 
+    color: '#626260',
+  },
 })

@@ -1,4 +1,4 @@
-import { View } from "react-native"
+import { Dimensions, View } from "react-native"
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
 
 import { StylesSettings } from '../Styles/StylesSettings';
@@ -6,7 +6,7 @@ import { StylesSettings } from '../Styles/StylesSettings';
 export const PresentationBox = () => {
     return (
         <View>
-            <Svg height={330} width={417} fill="none">
+            <Svg height={330} width={Dimensions.get('window').width * 1} fill="none">
                 <Path
                     fill="#B6CCD8"
                     d="M302.6 283.159c-20.717.889-41.374 4.079-61.981 9.571-5.128 1.377-14.55 4.166-14.465 4.288.147.209 11.1 3.4 16.362 4.759 18.918 4.899 36.417 7.653 56.658 8.926 4.772.296 20.118.401 25.514.174 23.459-.993 45.339-4.532 67.978-11 5.262-1.499 9.57-2.806 9.508-2.894-.061-.087-6.155-1.935-9.728-2.963-22.296-6.328-44.36-9.902-67.329-10.878-4.553-.192-17.879-.192-22.517.017Z"
