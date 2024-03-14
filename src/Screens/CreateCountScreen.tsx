@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
 import { Modal } from 'react-native';
@@ -8,12 +9,16 @@ import { LinearGradient } from 'react-native-linear-gradient';
 
 import { StylesSettings } from '../Styles/StylesSettings';
 import { PresentationBox } from '../Components/PresentationBox';
+import { RootStackParams } from '../Navigator/NavigatorControler';
 
 
 
 
 
 export const CreateCountScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  const [IdUser, setIdUser] = useState('');
   const [Nombre, setNombre] = useState('');
   const [Apellidos, setApellidos] = useState('');
   const [Password, setPassword] = useState('');
@@ -25,16 +30,41 @@ export const CreateCountScreen = () => {
   const [Fecha, setFecha] = useState('Fecha de nacimiento');
   const [ShowCalendar, setShowCalendar] = useState(false);
   const [ValuesDoctor, setValuesDoctor] = useState(false);
+  const [ValuesPaciente, setValuesPaciente] = useState(false);
+  const [ValuesFamiliar, setValuesFamiliar] = useState(false);
 
   const handleTipoUsuarioChange = (value: string) => {
     setTipo(value);
     // Si se selecciona "Doctor", mostrar las opciones especiales.
     if (value === "Doctor") {
       setValuesDoctor(true);
-    } else {
+      setValuesFamiliar(false);
+      setValuesPaciente(false);
+    } else if (value === 'Familiar'){
       setValuesDoctor(false);
+      setValuesFamiliar(true);
+      setValuesPaciente(false);
+    }else{
+      setValuesDoctor(false);
+      setValuesFamiliar(false);
+      setValuesPaciente(true);
     }
   };
+
+  const CrearUsuario = async () =>{
+    
+    // Conectamos con la API para mandar los datos registrado para el nuevo usuario
+    const response = await globalThis.fetch('http://10.0.2.2:4000/login', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ IdUser:  "marialuisa@gmail.com", Password:  "Merty123"}),
+        });
+        const responseData = await response.json();
+        console.log(responseData);
+  }
 
   return (
     <ScrollView style={StylesSettings.mainContainer}>
@@ -102,7 +132,7 @@ export const CreateCountScreen = () => {
               ...StylesSettings.Container
             }}>
               <TextInput
-                style={StylesSettings.InputBox}
+                style={StylesSettings.InputBox1}
                 placeholder='Celuda'
                 onChangeText={setCedula}
               />
@@ -110,6 +140,32 @@ export const CreateCountScreen = () => {
                 style={StylesSettings.InputBox}
                 placeholder='Especialidad'
                 onChangeText={setEspecialidad}
+              />
+            </View>
+          )}
+          {ValuesFamiliar && (
+            <View style={{
+              width: '100%',
+              ...StylesSettings.Container
+            }}>
+              <TextInput
+                style={StylesSettings.InputBox1}
+                placeholder='Número Telefónico'
+                onChangeText={setCedula}
+                keyboardType='numeric'
+              />
+            </View>
+          )}
+          {ValuesPaciente && (
+            <View style={{
+              width: '100%',
+              ...StylesSettings.Container
+            }}>
+              <TextInput
+                style={StylesSettings.InputBox1}
+                placeholder='Numero Seguro Social'
+                onChangeText={setCedula}
+                keyboardType='numeric'
               />
             </View>
           )}
@@ -121,11 +177,11 @@ export const CreateCountScreen = () => {
                 end={{ x: 0, y: 1 }}
                 style={StylesSettings.InputButtom}
               >
-                <Text style={StylesSettings.TextButton} >REGISTRARSE</Text>
+                <Text style={StylesSettings.TextButton} onPress={CrearUsuario} >REGISTRARSE</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity activeOpacity={1} style={{ marginTop: 15, marginVertical:20 }}>
+          <TouchableOpacity activeOpacity={1} style={{ marginTop: 15, marginVertical:20 }} onPress={() => navigation.navigate('LoginScreen')}>
             <Text style={StylesSettings.SubText}>¿Tienes cuenta? Inicia sesión aquí.</Text>
           </TouchableOpacity>
         </View>

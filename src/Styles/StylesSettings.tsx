@@ -34,6 +34,15 @@ export const StylesSettings = StyleSheet.create({
     paddingStart: 30,
     backgroundColor: '#F5F4F1',
   },
+  InputBox1:{
+    height: 50,
+    width: '80%',
+    padding: 10,
+    fontSize: 20,
+    borderRadius: 30,
+    paddingStart: 30,
+    backgroundColor: '#F5F4F1',
+  },
   ContainerButton:{
     flex: 1,
     width: '60%',
