@@ -1,15 +1,11 @@
 import React, { useState } from "react"
 import { Dimensions, FlatList, Pressable, ScrollView, Text, TextInput, View } from "react-native"
 import LinearGradient from "react-native-linear-gradient"
-import { ChatBotMessages } from "../../../interfaces/ChatBotinterfaces";
+import { ChatBotMessages } from "../../../interfaces/interfaces";
 import { ChatBotMessage } from "./ChatBotMessage";
 
 
 export const QuestionsChabot = () => {
-    interface mensages {
-        name: string,
-        message: string
-    }
     const [refreshing, setRefreshing] = useState(false);
     const [Message, setMessage] = useState('');
     const [UserBot, setUserBot] = useState('');

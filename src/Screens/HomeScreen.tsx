@@ -6,6 +6,7 @@ import { HomeScreenDoctor } from './Doctor/HomeScreenDoctor'
 import { HomeScreenPatient } from './Patient/HomeScreenPatient'
 import { HomeScreenFamiliar } from './Familiar/HomeScreenFamiliar'
 import { RootStackParams } from '../Navigator/NavigatorControler'
+import { Data } from '../interfaces/interfaces'
 
 
 
@@ -13,21 +14,19 @@ export const HomeScreen = ( ) => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     //Obtenemos el ID del Usuario a consultar
     const params = useRoute<RouteProp<RootStackParams, 'HomeScreen'>>().params;
-    
-    
-    const [User, setUser] = useState(params.userId);
-    const [TipoUser, setTipoUser] = useState();
-    const [Tipo, setTipo] = useState(params.Tipo);
 
     
-    if (Tipo === 'D') {
+    const [User, setUser] = useState<Data>(params.User);
+
+    
+    if (params.Tipo === 'D') {
         return (
             <View style={{ flex: 1 }}>
-                <HomeScreenDoctor User={User} Doctor={TipoUser} />
+                <HomeScreenDoctor User={User}/>
             </View>
         )
     }
-    else if (Tipo === 'P') {
+    else if (params.Tipo === 'P') {
         return (
             <View style={{ flex: 1 }} >
                 <HomeScreenPatient  />
@@ -37,7 +36,7 @@ export const HomeScreen = ( ) => {
     else {
         return (
             <View style={{ flex: 1 }} >
-                <HomeScreenFamiliar User={User} Familiar={TipoUser} />
+                <HomeScreenFamiliar User={User}/>
             </View>)
     }
 }

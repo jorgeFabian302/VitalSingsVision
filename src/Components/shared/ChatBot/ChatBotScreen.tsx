@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const ChatBotScreen = ({ isVisbleCheckParient = false }: Props) => {
-    const [Header, setHeader] = useState('Bienvenido a VMIA')
+    const [Header, setHeader] = useState('Bienvenido a VVIA')
     return (
         <View>
             <View>

@@ -4,12 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CreateCountScreen } from '../Screens/CreateCountScreen';
 import { LoginScreen } from '../Screens/LoginScreen';
 import { HomeScreen } from '../Screens/HomeScreen';
-import { PruebaScreen } from '../Screens/PruebaScreen';
+import { Data } from '../interfaces/interfaces';
 
 
 export type RootStackParams = {
   CreateCountScreen : undefined,
-  HomeScreen:  {userId: string, Tipo: string},
+  HomeScreen:  { Tipo: string, User: Data},
   LoginScreen: undefined,
   PruebaScreen: undefined,  
 }

@@ -5,13 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StylesHomeSettings } from '../../Styles/StylesHomeSettings';
 import { Diagrams } from '../../Components/shared/Diagrams';
 import { ButtonChatbot } from '../../Components';
-import { Usuario } from '../../interfaces/UserInterfaces';
 import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen';
-
-/*interface Props {
-    User: Usuario,
-    Paciente: any,
-}*/
 
 
 export const HomeScreenPatient = () => {

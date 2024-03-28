@@ -29,6 +29,7 @@ export const Diagrams = () => {
         <Text style={{ fontSize: 25 }}>Estaus: Estable</Text>
         {/*<GraphisSmall />*/}
         <View style={{flex:1, alignItems:'center'}}>
+          {/* mostrar la grafica del elector cardiograma  */}
           <Image  source={require('../../Image/Di.png')}/>
         </View>
       </View>

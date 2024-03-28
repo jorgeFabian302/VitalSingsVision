@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import {ChatBotMessages} from '../../../interfaces/ChatBotinterfaces';
+import {ChatBotMessages} from '../../../interfaces/interfaces';
 
 interface Props{
     message: ChatBotMessages

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, Text, View } from 'react-native';
-import { ChatBotMessages } from '../../../interfaces/ChatBotinterfaces';
-import { ListaPacientes } from '../../../interfaces/UserInterfaces';
+import { ChatBotMessages } from '../../../interfaces/interfaces';
 import { MensageITem } from './MensageITem';
 
 interface Props {

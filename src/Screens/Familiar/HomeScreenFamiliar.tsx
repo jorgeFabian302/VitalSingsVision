@@ -2,13 +2,13 @@ import { Dimensions, Text, View } from 'react-native'
 import { ButtonChatbot } from '../../Components'
 import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen'
 import { useState } from 'react';
+import { Data } from '../../interfaces/interfaces';
 
 interface Props {
-  User: any,
-  Familiar: any,
+  User: Data,
 }
 
-export const HomeScreenFamiliar = ({ User, Familiar }: Props) => {
+export const HomeScreenFamiliar = ({ User }: Props) => {
   const [ChatVisible, setChatVisible] = useState(false);
 
   return (
