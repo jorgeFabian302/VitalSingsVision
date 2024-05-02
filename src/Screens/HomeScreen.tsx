@@ -29,7 +29,7 @@ export const HomeScreen = ( ) => {
     else if (params.Tipo === 'P') {
         return (
             <View style={{ flex: 1 }} >
-                <HomeScreenPatient  />
+                <HomeScreenPatient  User={User}/>
             </View>
         )
     }

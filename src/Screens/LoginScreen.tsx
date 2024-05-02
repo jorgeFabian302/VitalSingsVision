@@ -47,7 +47,6 @@ export const LoginScreen = () => {
                     const RolPaciente =  DataState.roles.RolPaciente
                     const RolDoctor = DataState.roles.RolDoctor
                     const RolFamiliar = DataState.roles.RolFamiliar
-                    console.log(DataState);
                     if(RolPaciente && RolFamiliar && RolDoctor){
                         Alert.alert("Destección de varios tipos de usuarios", "Selecciona a donde entrar",[
                             {
@@ -56,47 +55,47 @@ export const LoginScreen = () => {
                             },
 
                             {
-                                text: 'Paciente', 
+                                text: 'Patient', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'P'})
                             },
                             {
-                                text: 'Familiar', 
+                                text: 'Family', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'F'})
                             },
                             {
-                                text: 'Cancelar'
+                                text: 'Exit'
                             }
                         ])
                     }
                     else if(RolPaciente && RolDoctor){
-                        Alert.alert("Destección de varios tipos de usuarios", "Selecciona a donde entrar",[
+                        Alert.alert("Detection of various types of users", "Select where to enter",[
                             {
                                 text: 'Doctor', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'D'})
                             },
 
                             {
-                                text: 'Paciente', 
+                                text: 'Patient', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'P'})
                             },
                             {
-                                text: 'Cancelar'
+                                text: 'Exit'
                             }
                         ])
                     }
                     else if(RolPaciente && RolFamiliar){
-                        Alert.alert("Destección de varios tipos de usuarios", "Selecciona a donde entrar",[
+                        Alert.alert("Detection of various types of users", "Select where to enter",[
                             {
-                                text: 'Paciente', 
+                                text: 'Patient', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'P'})
                             },
 
                             {
-                                text: 'Familiar', 
+                                text: 'Family', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'F'})
                             },
                             {
-                                text: 'Cancelar'
+                                text: 'Exit'
                             }
                         ])
                     }
@@ -108,11 +107,11 @@ export const LoginScreen = () => {
                             },
 
                             {
-                                text: 'Familia', 
+                                text: 'Family', 
                                 onPress: () => navigation.navigate('HomeScreen', { User: DataState.roles.data ,  Tipo:'F'})
                             },
                             {
-                                text: 'Cancelar'
+                                text: 'Exit'
                             }
                         ])
                     }
@@ -127,7 +126,7 @@ export const LoginScreen = () => {
                     }
                 }
             }else{
-                Alert.alert('Advertencia', 'Usuario y/o contraseña incorrectos')
+                Alert.alert('Warning', 'Incorrect username and/or password')
             }
         }
     }
@@ -135,18 +134,18 @@ export const LoginScreen = () => {
     return (
         <View style={StylesSettings.mainContainer}>
             <View style={StylesSettings.containerSVG}>
-                <PresentationBox />
+                <PresentationBox PositionsR={'relative'}/>
             </View>
             <View style={StylesSettings.Container} >
                 <Text style={StylesSettings.Titlee}>Login</Text>
                 <TextInput
                     style={StylesSettings.InputBox}
-                    placeholder='Nombre de usuario'
+                    placeholder='email'
                     onChangeText={setUser}
                 />
                 <TextInput
                     style={StylesSettings.InputBox}
-                    placeholder='Contraseña'
+                    placeholder='Password'
                     onChangeText={setPassword}
                     secureTextEntry={true}
                 />
@@ -158,12 +157,12 @@ export const LoginScreen = () => {
                             end={{ x: 0, y: 1 }}
                             style={StylesSettings.InputButtom}
                         >
-                            <Text style={StylesSettings.TextButton} >Entrar</Text>
+                            <Text style={StylesSettings.TextButton} >Start</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => navigation.navigate('CreateCountScreen')}>
-                    <Text style={StylesSettings.SubText}>¿No tienes cuenta? Registrate aquí.</Text>
+                    <Text style={StylesSettings.SubText}>You do not have an account? sign up here.</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -1,53 +1,69 @@
-import React, { useState } from 'react'
-import {Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Text, View } from 'react-native';
 
-import { StylesHomeSettings } from '../../Styles/StylesHomeSettings';
-import { Diagrams } from '../../Components/shared/Diagrams';
-import { ButtonChatbot } from '../../Components';
-import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen';
+import { ConsultaClass, Data, DoctorInfo } from '../../interfaces/interfaces';
+import HomeSCreenDataP from './HomeSCreenDataP';
+import HomeScreenDataU from './HomeScreenDataU';
 
+interface Props {
+    User: Data,
+}
 
-export const HomeScreenPatient = () => {
-    const [ChatVisible, setChatVisible] = useState(false);
-    const [Nombre, setNombre] = useState('Pedro Diaz');
-    return (
-    <View style={{ flex: 1, justifyContent: 'center'}}>
-        <View style={StylesHomeSettings.mainContainer}>
-            <View style={{marginVertical:30}}>
-                <TouchableOpacity>
-                    <LinearGradient
-                        colors={['#00668C', '#D4EAF7']}
-                        start={{ x: 1, y: 1 }}
-                        end={{ x: 0, y: 0  }}
-                        style={StylesHomeSettings.ButtonUser}
-                    >
-                        <View style={StylesHomeSettings.UserContainer}>
-                            <Image  source={require('../../Image/User.png')}/>
-                        </View>
-                        <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Bienvenido: {Nombre}</Text>
-                    </LinearGradient>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Diagrams />
-            </View>
-        </View>
-        { ChatVisible && (<View style={{
-                position: 'absolute',
-                width: Dimensions.get('screen').width * 0.9, 
-                height: Dimensions.get('screen').height * 0.75,
-                backgroundColor: 'white', 
-                alignItems: 'center', 
-                marginHorizontal: 20
-            }}>
-                <ChatBotScreen />
-            </View>)}
-        <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', marginEnd: 10 }}>
-                <ButtonChatbot onPress={() => setChatVisible(!ChatVisible)} />
-        </View>
-    </View>
-  )
+export const HomeScreenPatient = ({ User }: Props) => {
+    const [RevisionCardiaca, setRevisionCardiaca] = useState<ConsultaClass>();
+    const [DataDoctor, setDataDoctor] = useState<DoctorInfo>();
+    const [Estatus, setEstatus] = useState(false);
+    const [EstatusD, setEstatusD] = useState(false);
+
+    const ObtencionSignos = async () => {
+        if (!Estatus){
+            const response = await globalThis.fetch('http://10.0.2.2:4000/consulta/ultimasesion', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ IdFPaciente: User.IdUser }),
+            });
+            const responseData = await response.json();
+            if (responseData.code === 200) {
+                setEstatus(true);
+                console.log('entra2' + RevisionCardiaca?.consulta.IdFDoctor);
+                setRevisionCardiaca(responseData);
+                console.log(responseData);
+                const response = await globalThis.fetch('http://10.0.2.2:4000/doctor/02-UMaRu1905', {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const responseDataDoctor = await response.json();
+                if (responseDataDoctor.code === 200) {
+                    console.log(responseDataDoctor)
+                    setDataDoctor(responseDataDoctor);
+                    setEstatusD(true);
+                }
+            }
+        }
+    }
+
+    useEffect(() => {
+        //Mandamos las peticiones 
+        ObtencionSignos();
+    }, [])
+    
+
+    if (!Estatus) {
+        return (<HomeScreenDataU UserP={User}/>)
+    }
+    else {
+        if (EstatusD) {
+            return (<HomeSCreenDataP UserP={User} RevisionCardiaca={RevisionCardiaca} UserD={DataDoctor} />)
+        }else{
+            return (<View><Text>vdkvfjvhfdvjkhfv</Text></View>)
+        }
+    }
 }
 
 

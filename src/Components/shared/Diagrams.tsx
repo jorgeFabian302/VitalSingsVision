@@ -1,37 +1,52 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { GraphisSmall } from './GraphisSmall';
+import { ECG } from './GraphisSmall';
+import { RevisionCardiaca, Consulta } from '../../interfaces/interfaces';
+import moment from 'moment';
 
+interface Props{
+  Consultas?: Consulta
+}
 
-export const Diagrams = () => {
+export const Diagrams = ({ Consultas}: Props) => {
   const [colorStatus, setcolorStatus] = useState('#6ADEAC')
+  const [Fecha, setFecha] = useState("");
+
+  useEffect(() => {
+    const fechaFormateada = moment(Consultas?.FechaConsulta, 'ddd, DD MMM YYYY HH:mm:ss z').format('DD/MM/YYYY');
+    setFecha(fechaFormateada);
+  })
+  
   return (
     <TouchableOpacity style={StylesDiagrmas.Container}>
       <View style={{ ...StylesDiagrmas.BarraStatus, backgroundColor: colorStatus }} />
-      <View style={{ height: Dimensions.get('screen').height * 0.31, flex: 1 }}>
+      <View style={{ height: Dimensions.get('screen').height * 0.30, flex: 1 }}>
         <View>
           <Text style={{ fontSize: 17, marginLeft: 6 }}>Corazón:</Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontSize: 20, marginLeft: 6 }} >80</Text>
+            <Text style={{ fontSize: 20, marginLeft: 6 }} >{Consultas?.FrecuenciaCardiaca}</Text>
             <Text style={{ marginLeft: 2, marginTop: 6 }}>rpm</Text>
           </View>
         </View>
         <View style={{ alignItems: 'center', marginTop: 50, flex: 1 }}>
-          <Text style={{ fontSize: 15 }}>Último</Text>
-          <Text style={{ fontSize: 15 }}>Diagnótico:</Text>
+          <Text style={{ fontSize: 15 }}>Last</Text>
+          <Text style={{ fontSize: 15 }}>Appointment:</Text>
           <View style={{ marginTop: 3, alignItems: 'center' }}>
-            <Text style={{ fontSize: 12 }}>02/01/2024</Text>
-            <Text style={{ fontSize: 12 }}>12:15:00</Text>
+            <Text style={{ fontSize: 12 }}>{Fecha}</Text>
+            <Text style={{ fontSize: 12 }}>{Consultas?.HoraConsulta}</Text>
           </View>
         </View>
       </View>
-      <View style={{ flex: 3.5 }}>
-        <Text style={{ fontSize: 25 }}>Estaus: Estable</Text>
-        {/*<GraphisSmall />*/}
-        <View style={{flex:1, alignItems:'center'}}>
-          {/* mostrar la grafica del elector cardiograma  */}
-          <Image  source={require('../../Image/Di.png')}/>
+      <View style={{ flex: 2.6}}>
+        <Text style={{ fontSize: 25, }}>Estaus: {Consultas?.Estado}</Text>
+        <View style={{ width: 262}}>
+            <ECG SignalData={Consultas?.revisionCardiaca} Errorx={25} Errory={83}/>
         </View>
+        {/*<ECG SignalData={Consultas?.revisionCardiaca}/>*/}
+        {/*<View style={{flex:1, alignItems:'center'}}>
+          {/* mostrar la grafica del elector cardiograma  }
+          <Image  source={require('../../Image/Di.png')}/>
+        </View>*/}
       </View>
     </TouchableOpacity>
   )

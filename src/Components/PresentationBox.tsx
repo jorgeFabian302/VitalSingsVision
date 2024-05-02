@@ -1,11 +1,13 @@
 import { Dimensions, View } from "react-native"
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg"
 
-import { StylesSettings } from '../Styles/StylesSettings';
+interface Props{
+    PositionsR: any
+}
 
-export const PresentationBox = () => {
+export const PresentationBox = ({PositionsR}: Props) => {
     return (
-        <View>
+        <View style={{ position: PositionsR }}>
             <Svg height={330} width={Dimensions.get('window').width * 1} fill="none">
                 <Path
                     fill="#B6CCD8"

@@ -156,7 +156,7 @@ export const CreateCountScreen = () => {
     <ScrollView style={StylesSettings.mainContainer}>
       <View>
         <View style={StylesSettings.containerSVG}>
-          <PresentationBox />
+          <PresentationBox PositionsR={'relative'}/>
         </View>
         <View style={StylesSettings.Container}>
           <Text style={StylesSettings.Titlee}>Sign Up</Text>

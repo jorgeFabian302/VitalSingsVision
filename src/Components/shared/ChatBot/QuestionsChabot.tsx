@@ -61,7 +61,7 @@ export const QuestionsChabot = () => {
                 <Pressable
                     style={{ marginHorizontal: 10, backgroundColor: '#FFFEFB', width: 60, height: 45, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
                     onPress={Reset}
-                ><Text>ReTURN</Text></Pressable>
+                ><Text>Return</Text></Pressable>
             </LinearGradient>
         </View>
     )
