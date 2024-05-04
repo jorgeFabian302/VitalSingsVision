@@ -10,33 +10,32 @@ import { Data } from '../interfaces/interfaces'
 
 
 
-export const HomeScreen = ( ) => {
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+export const HomeScreen = () => {
     //Obtenemos el ID del Usuario a consultar
     const params = useRoute<RouteProp<RootStackParams, 'HomeScreen'>>().params;
 
-    
+
     const [User, setUser] = useState<Data>(params.User);
 
-    
+
     if (params.Tipo === 'D') {
         return (
             <View style={{ flex: 1 }}>
-                <HomeScreenDoctor User={User}/>
+                <HomeScreenDoctor User={User} />
             </View>
         )
     }
     else if (params.Tipo === 'P') {
         return (
             <View style={{ flex: 1 }} >
-                <HomeScreenPatient  User={User}/>
+                <HomeScreenPatient User={User} />
             </View>
         )
     }
     else {
         return (
             <View style={{ flex: 1 }} >
-                <HomeScreenFamiliar User={User}/>
+                <HomeScreenFamiliar User={User} />
             </View>)
     }
 }

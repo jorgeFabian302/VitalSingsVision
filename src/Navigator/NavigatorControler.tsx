@@ -1,18 +1,21 @@
-import React from 'react';
-
 import { createStackNavigator } from '@react-navigation/stack';
-import { CreateCountScreen } from '../Screens/CreateCountScreen';
-import { LoginScreen } from '../Screens/LoginScreen';
-import { HomeScreen } from '../Screens/HomeScreen';
-import { Data } from '../interfaces/interfaces';
-import { InfoUserSCreen } from '../Screens/Patient/InfoUserSCreen';
 
+
+import { HomeScreen } from '../Screens/HomeScreen';
+import { LoginScreen } from '../Screens/LoginScreen';
+import { InfoUserSCreen } from '../Screens/InfoUserSCreen';
+import { DiagnosisScreen } from '../Screens/DiagnosisScreen';
+import { CreateCountScreen } from '../Screens/CreateCountScreen';
+import { ConsultaClass, Data, Doctor, Listconsults, Paciente } from '../interfaces/interfaces';
+import { InfoScreen } from '../Screens/InfoScreen';
 
 export type RootStackParams = {
   CreateCountScreen : undefined,
   HomeScreen:  { Tipo: string, User: Data},
   LoginScreen: undefined,
   InfoUserSCreen: {User?: Data},
+  DiagnosisScreen: {RevisionCardiaca?: ConsultaClass},
+  InfoScreen: {UserP: Paciente, UserD: Data,  Listconsults?: Listconsults}
 }
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -28,6 +31,8 @@ export const NavigatorControler = () => {
       <Stack.Screen name = "CreateCountScreen" component={ CreateCountScreen } />
       <Stack.Screen name = "HomeScreen" component={ HomeScreen } />
       <Stack.Screen name = "InfoUserSCreen" component={ InfoUserSCreen } />
+      <Stack.Screen name = "DiagnosisScreen" component={ DiagnosisScreen } />
+      <Stack.Screen name = "InfoScreen" component={ InfoScreen } />
     </Stack.Navigator>
   );
 }

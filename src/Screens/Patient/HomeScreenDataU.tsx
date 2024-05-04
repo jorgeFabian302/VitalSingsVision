@@ -21,7 +21,7 @@ const HomeScreenDataU = ({ UserP }: Props) => {
         <View style={{ flex: 1, justifyContent: 'center' }}>
             <View style={StylesHomeSettings.mainContainer}>
                 <View style={{ marginVertical: 30 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', {User:UserP})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', { User: UserP })}>
                         <LinearGradient
                             colors={['#00668C', '#D4EAF7']}
                             start={{ x: 1, y: 1 }}
@@ -30,6 +30,18 @@ const HomeScreenDataU = ({ UserP }: Props) => {
                         >
                             <Image source={require('../../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
                             <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome: {UserP.Nombre}</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flex: 1, marginTop: 480 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+                        <LinearGradient
+                            colors={['#941C20', '#FB3D61']}
+                            start={{ x: 1, y: 1 }}
+                            end={{ x: 0, y: 0 }}
+                            style={StylesHomeSettings.ButtomGeneral}
+                        >
+                            <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Exit</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>

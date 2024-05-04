@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native'
-import { StylesSettings } from '../../Styles/StylesSettings'
-import { PresentationBox } from '../../Components/PresentationBox'
-import { Data } from '../../interfaces/interfaces'
+import { StylesSettings } from '../Styles/StylesSettings'
+import { PresentationBox } from '../Components/PresentationBox'
+import { Data } from '../interfaces/interfaces'
 import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { RootStackParams } from '../../Navigator/NavigatorControler'
-import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen'
-import { ButtonChatbot } from '../../Components'
-import { StylesHomeInfoUser } from '../../Styles/StylesHomeInfoUser'
+import { RootStackParams } from '../Navigator/NavigatorControler'
+import { ChatBotScreen } from '../Components/shared/ChatBot/ChatBotScreen'
+import { ButtonChatbot } from '../Components'
+import { StylesHomeInfoUser } from '../Styles/StylesHomeInfoUser'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const InfoUserSCreen = () => {
@@ -22,7 +22,7 @@ export const InfoUserSCreen = () => {
             <View style={StylesSettings.mainContainer}>
                 <View style={StylesSettings.containerSVG}>
                     <PresentationBox PositionsR={'absolute'} />
-                    <Image source={require('../../Image/User.png')} style={StylesHomeInfoUser.UserContainer} resizeMode='contain' />
+                    <Image source={require('../Image/User.png')} style={StylesHomeInfoUser.UserContainer} resizeMode='contain' />
                 </View>
                 <View style={StylesHomeInfoUser.ContainerLabes}>
                     <View style={StylesHomeInfoUser.ContainerLabel}>

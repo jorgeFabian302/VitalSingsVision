@@ -14,7 +14,6 @@ export const StylesHomeSettings = StyleSheet.create({
         width:Dimensions.get('window').width * 0.95, // Utiliza porcentaje en lugar de dimensiones fijas
     },
     ButtonDoctor:{
-        marginTop: 50,
         flexDirection: 'row',
         alignItems: 'center',
         borderRadius: 20,
@@ -39,4 +38,23 @@ export const StylesHomeSettings = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center'
     },
+    ContainerFlatList:{
+        alignItems: 'center',
+        borderRadius: 10,
+        flex:1,
+        width:Dimensions.get('window').width * 0.95, // Utiliza porcentaje en lugar de dimensiones fijas
+    },
+    ContainerList:{
+        flex: 3, 
+        width: Dimensions.get('window').width * 0.95,
+    },
+    ButtomGeneral:{
+        marginVertical: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent:'center',
+        borderRadius: 5,
+        height: 35,
+        width:Dimensions.get('window').width * 0.95, // Utiliza porcentaje en lugar de dimensiones fijas
+    }
 })

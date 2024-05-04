@@ -1,61 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
-import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen';
-import { ButtonChatbot } from '../../Components';
-import { Data, ListPatient, Paciente } from '../../interfaces/interfaces';
+import React, { useState } from 'react'
+import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Data, Doctor, Listconsults, Paciente } from '../interfaces/interfaces'
+import { RootStackParams } from '../Navigator/NavigatorControler';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import { StylesHomeSettings } from '../../Styles/StylesHomeSettings';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParams } from '../../Navigator/NavigatorControler';
-import { PatientItem } from '../../Components/shared/List/PatientItem';
+import { StylesHomeSettings } from '../Styles/StylesHomeSettings';
+import { ChatBotScreen } from '../Components/shared/ChatBot/ChatBotScreen';
+import { ButtonChatbot } from '../Components';
 
-interface Props {
-  User: Data,
-}
-
-export const HomeScreenDoctor = ({ User }: Props) => {
-  const [ChatVisible, setChatVisible] = useState(false);
+export const InfoScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const [ListPatient, setListPatient] = useState<ListPatient>();
-  const [ListEstatus, setListEstatus] = useState(false);
-
-  const ObtencionListaPaicente = async () => {
-    if (!ListEstatus) {
-      const response = await globalThis.fetch('http://10.0.2.2:4000/pacientes', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
-      const responseData = await response.json();
-      console.log(responseData);
-      if (responseData.code === 200) {
-        console.log(responseData);
-        setListPatient(responseData);
-        setListEstatus(true);
-      }
-    }
-  }
-
-  useEffect(() => {
-    ObtencionListaPaicente();
-  }, [])
-
+  const params = useRoute<RouteProp<RootStackParams, 'InfoScreen'>>().params;
+  const [Listconsults, setListconsults] = useState<Listconsults>();
+  const [UserP, setUserP] = useState<Paciente>(params.UserP);
+  const [UserD, setUserD] = useState<Data>(params.UserD);
+  const [Estaus, setEstaus] = useState(false);
+  const [ChatVisible, setChatVisible] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: 'center' }}>
+      <View style={StyleSheetScreen.ContainerPrincipal}>
         <View style={{ marginVertical: 30 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', { User: User })}>
+          <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', { User: UserD })}>
             <LinearGradient
               colors={['#00668C', '#D4EAF7']}
               start={{ x: 1, y: 1 }}
               end={{ x: 0, y: 0 }}
               style={StylesHomeSettings.ButtonUser}
             >
-              <Image source={require('../../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
-              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome Dr: {User.Apellidos}</Text>
+              <Image source={require('../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
+              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome Dr: {UserD.Apellidos}</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -66,7 +40,7 @@ export const HomeScreenDoctor = ({ User }: Props) => {
             end={{ x: 0, y: 0 }}
             style={StylesHomeSettings.ContainerFlatList}
           >
-            {
+            { /*
               ListEstatus && (
                 <View style={{ alignItems: 'center', marginTop: 5, }}>
                   <View style={{ marginVertical: 10 }}>
@@ -77,19 +51,19 @@ export const HomeScreenDoctor = ({ User }: Props) => {
                     renderItem={({ item }) => <PatientItem UserP={item} UserD={User} />}
                     keyExtractor={item => item.IdPaciente.toString()}
                   />
-                </View>)
+                </View>) */
             }
           </ LinearGradient>
         </View>
         <View style={{ flex: 1, marginTop: 10 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <LinearGradient
-              colors={['#941C20', '#FB3D61']}
+              colors={['#00668C', '#D4EAF7']}
               start={{ x: 1, y: 1 }}
               end={{ x: 0, y: 0 }}
               style={StylesHomeSettings.ButtomGeneral}
             >
-              <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Exit</Text>
+              <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Back</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -110,3 +84,11 @@ export const HomeScreenDoctor = ({ User }: Props) => {
     </View>
   )
 }
+
+export const StyleSheetScreen = StyleSheet.create({
+  ContainerPrincipal: {
+    alignItems: 'center',
+    flex: 1,
+  },
+})
+
