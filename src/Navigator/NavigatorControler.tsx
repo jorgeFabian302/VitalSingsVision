@@ -6,7 +6,7 @@ import { LoginScreen } from '../Screens/LoginScreen';
 import { InfoUserSCreen } from '../Screens/InfoUserSCreen';
 import { DiagnosisScreen } from '../Screens/DiagnosisScreen';
 import { CreateCountScreen } from '../Screens/CreateCountScreen';
-import { ConsultaClass, Data, Doctor, Listconsults, Paciente } from '../interfaces/interfaces';
+import { Consulta, Data, Listconsults, Paciente } from '../interfaces/interfaces';
 import { InfoScreen } from '../Screens/InfoScreen';
 
 export type RootStackParams = {
@@ -14,7 +14,7 @@ export type RootStackParams = {
   HomeScreen:  { Tipo: string, User: Data},
   LoginScreen: undefined,
   InfoUserSCreen: {User?: Data},
-  DiagnosisScreen: {RevisionCardiaca?: ConsultaClass},
+  DiagnosisScreen: {RevisionCardiaca?: Consulta},
   InfoScreen: {UserP: Paciente, UserD: Data,  Listconsults?: Listconsults}
 }
 

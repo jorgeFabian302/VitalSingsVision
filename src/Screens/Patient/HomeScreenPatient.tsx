@@ -4,12 +4,15 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { ConsultaClass, Data, Doctor } from '../../interfaces/interfaces';
 import HomeSCreenDataP from './HomeSCreenDataP';
 import HomeScreenDataU from './HomeScreenDataU';
+import { RootStackParams } from '../../Navigator/NavigatorControler';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 interface Props {
     User: Data,
 }
 
 export const HomeScreenPatient = ({ User }: Props) => {
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const [RevisionCardiaca, setRevisionCardiaca] = useState<ConsultaClass>();
     const [DataDoctor, setDataDoctor] = useState<Doctor>();
     const [Estatus, setEstatus] = useState(false);

@@ -9,7 +9,7 @@ interface Props{
 }
 
 export const Diagrams = ({ Consultas}: Props) => {
-  const [colorStatus, setcolorStatus] = useState('#6ADEAC')
+  const [colorStatus, setcolorStatus] = useState('#6ADEAC');
   const [Fecha, setFecha] = useState("");
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const Diagrams = ({ Consultas}: Props) => {
         </View>
       </View>
       <View style={{ flex: 2.6}}>
-        <Text style={{ fontSize: 25, }}>Estaus: {Consultas?.Estado}</Text>
+        <Text style={{ fontSize: 25, }}>Estatus: {Consultas?.Estado}</Text>
         <View style={{ width: 262}}>
             <ECG SignalData={Consultas?.revisionCardiaca} Errorx={25} Errory={83}/>
         </View>

@@ -29,9 +29,7 @@ export const HomeScreenDoctor = ({ User }: Props) => {
         },
       });
       const responseData = await response.json();
-      console.log(responseData);
       if (responseData.code === 200) {
-        console.log(responseData);
         setListPatient(responseData);
         setListEstatus(true);
       }

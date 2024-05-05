@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Data, Doctor, Listconsults, Paciente } from '../interfaces/interfaces'
 import { RootStackParams } from '../Navigator/NavigatorControler';
@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StylesHomeSettings } from '../Styles/StylesHomeSettings';
 import { ChatBotScreen } from '../Components/shared/ChatBot/ChatBotScreen';
 import { ButtonChatbot } from '../Components';
+import { ConsultItem } from '../Components/shared/List/ConsultItem';
 
 export const InfoScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -14,8 +15,17 @@ export const InfoScreen = () => {
   const [Listconsults, setListconsults] = useState<Listconsults>();
   const [UserP, setUserP] = useState<Paciente>(params.UserP);
   const [UserD, setUserD] = useState<Data>(params.UserD);
-  const [Estaus, setEstaus] = useState(false);
   const [ChatVisible, setChatVisible] = useState(false);
+  const [ListEstatus, setListEstatus] = useState(false);
+
+  useEffect(() => {
+    if (params.Listconsults != undefined) {
+      setListconsults(params.Listconsults);
+      setListEstatus(true);
+    }
+  })
+
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -40,18 +50,25 @@ export const InfoScreen = () => {
             end={{ x: 0, y: 0 }}
             style={StylesHomeSettings.ContainerFlatList}
           >
-            { /*
+            {
               ListEstatus && (
-                <View style={{ alignItems: 'center', marginTop: 5, }}>
-                  <View style={{ marginVertical: 10 }}>
-                    <Text style={{ fontSize: 40, color: '#FFFEFB' }}>Patient List</Text>
+                <View style={{ alignItems: 'center', marginTop: 3 }}>
+                  <TouchableOpacity style={StylesHomeSettings.ContainerFlatListConsult} onPress={() => navigation.navigate('InfoUserSCreen', { User: UserP.data })}>
+                    <View style={{ marginVertical:10 }}>
+                      <Image source={require('../Image/User.png')} style={StylesHomeSettings.ParientContainer} resizeMode='contain' />
+                    </View>
+                    <View style={{ marginHorizontal: 20, flexDirection: 'row' }}>
+                      <Text style={{ fontSize: 20, color: '#ADACAA' }}>{UserP.data.Apellidos}</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={{ marginTop: 10 }}>
+                    <FlatList
+                      data={Listconsults?.listconsults.consultas}
+                      renderItem={({ item }) => <ConsultItem consulta={item} />}
+                      keyExtractor={item => item.IdConsulta.toString()}
+                    />
                   </View>
-                  <FlatList
-                    data={ListPatient?.listpatient.pacientes}
-                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} />}
-                    keyExtractor={item => item.IdPaciente.toString()}
-                  />
-                </View>) */
+                </View>)
             }
           </ LinearGradient>
         </View>
