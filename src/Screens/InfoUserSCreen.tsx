@@ -9,11 +9,13 @@ import { ChatBotScreen } from '../Components/shared/ChatBot/ChatBotScreen'
 import { ButtonChatbot } from '../Components'
 import { StylesHomeInfoUser } from '../Styles/StylesHomeInfoUser'
 import Icon from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient'
+import { StylesHomeSettings } from '../Styles/StylesHomeSettings'
 
 export const InfoUserSCreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const params = useRoute<RouteProp<RootStackParams, 'InfoUserSCreen'>>().params;
-    if(params.User != undefined){
+    if (params.User != undefined) {
         //Obtenemos el ID del Usuario a consultar
         const [User, setUser] = useState<Data>(params.User);
         const [ChatVisible, setChatVisible] = useState(false);
@@ -40,6 +42,18 @@ export const InfoUserSCreen = () => {
                     <View style={StylesHomeInfoUser.ContainerLabel}>
                         <View style={StylesHomeInfoUser.ContainerLabelText}><Text style={StylesHomeInfoUser.TextLabel}>{User.FechaNacimiento}</Text></View>
                         {/*<TouchableOpacity style={StylesHomeInfoUser.ContainerLabelicon}><Text><Icon name="pencil-sharp" size={30} color="#A3A2A0" /></Text></TouchableOpacity>*/}
+                    </View>
+                    <View style={{ flex: 1, marginTop: 35 }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <LinearGradient
+                                colors={['#00668C', '#D4EAF7']}
+                                start={{ x: 1, y: 1 }}
+                                end={{ x: 0, y: 0 }}
+                                style={StylesHomeSettings.ButtomGeneral}
+                            >
+                                <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Back</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 {ChatVisible && (<View style={{

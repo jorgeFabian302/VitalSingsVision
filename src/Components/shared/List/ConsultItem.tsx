@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Consulta } from '../../../interfaces/interfaces';
+import { Consulta, Data } from '../../../interfaces/interfaces';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -7,10 +7,11 @@ import { RootStackParams } from '../../../Navigator/NavigatorControler';
 
 interface Props {
     consulta: Consulta,
+    User:Data
 }
 
 
-export const ConsultItem = ({ consulta }: Props) => {
+export const ConsultItem = ({ consulta, User }: Props) => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const [ColorEstatus, setColorEstatus] = useState<string>();
     const [Fecha, setFecha] = useState("");
@@ -29,7 +30,7 @@ export const ConsultItem = ({ consulta }: Props) => {
         setFecha(fechaFormateada);
     })
     return (
-        <TouchableOpacity style={StylesSheetitems.ContainerTouchableOpacity} onPress={() => navigation.navigate('DiagnosisScreen', { RevisionCardiaca: consulta})}>
+        <TouchableOpacity style={StylesSheetitems.ContainerTouchableOpacity} onPress={() => navigation.navigate('DiagnosisScreen', { RevisionCardiaca: consulta, UserDpr: User})}>
             <View style={StylesSheetitems.Container}>
                 <Text style={ StylesSheetitems.text }>Fecha Consulta: {Fecha}</Text>
             </View>

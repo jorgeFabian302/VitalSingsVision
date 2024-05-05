@@ -14,7 +14,7 @@ export type RootStackParams = {
   HomeScreen:  { Tipo: string, User: Data},
   LoginScreen: undefined,
   InfoUserSCreen: {User?: Data},
-  DiagnosisScreen: {RevisionCardiaca?: Consulta},
+  DiagnosisScreen: {RevisionCardiaca?: Consulta, UserDpr: Data},
   InfoScreen: {UserP: Paciente, UserD: Data,  Listconsults?: Listconsults}
 }
 

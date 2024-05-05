@@ -64,7 +64,7 @@ export const InfoScreen = () => {
                   <View style={{ marginTop: 10 }}>
                     <FlatList
                       data={Listconsults?.listconsults.consultas}
-                      renderItem={({ item }) => <ConsultItem consulta={item} />}
+                      renderItem={({ item }) => <ConsultItem consulta={item} User={UserD} />}
                       keyExtractor={item => item.IdConsulta.toString()}
                     />
                   </View>
