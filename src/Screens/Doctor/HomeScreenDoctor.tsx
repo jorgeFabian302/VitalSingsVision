@@ -42,8 +42,8 @@ export const HomeScreenDoctor = ({ User }: Props) => {
 
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 1, alignItems: 'center' }}>
+    <View style={{ flex: 1,  justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems:'center' }}>
         <View style={{ marginVertical: 30 }}>
           <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', { User: User })}>
             <LinearGradient
@@ -53,7 +53,7 @@ export const HomeScreenDoctor = ({ User }: Props) => {
               style={StylesHomeSettings.ButtonUser}
             >
               <Image source={require('../../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
-              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome Dr: {User.Apellidos}</Text>
+              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome: {User.Apellidos}</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>

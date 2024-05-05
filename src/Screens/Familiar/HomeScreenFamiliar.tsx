@@ -1,8 +1,16 @@
-import { Dimensions, Text, View } from 'react-native'
+import { useEffect, useState } from 'react';
+import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../../Navigator/NavigatorControler';
+
+import LinearGradient from 'react-native-linear-gradient';
+
 import { ButtonChatbot } from '../../Components'
+import { Data, ListParient } from '../../interfaces/interfaces';
+import { StylesHomeSettings } from '../../Styles/StylesHomeSettings';
 import { ChatBotScreen } from '../../Components/shared/ChatBot/ChatBotScreen'
-import { useState } from 'react';
-import { Data } from '../../interfaces/interfaces';
+import { PatientItem } from '../../Components/shared/List/PatientItem';
+
 
 interface Props {
   User: Data,
@@ -10,13 +18,85 @@ interface Props {
 
 export const HomeScreenFamiliar = ({ User }: Props) => {
   const [ChatVisible, setChatVisible] = useState(false);
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const [ListEstatus, setListEstatus] = useState(false);
+  const [ListPatient, setListPatient] = useState<ListParient>();
+
+
+
+  const ObtencionListaPaicente = async () => {
+    if (!ListEstatus) {
+      const response = await globalThis.fetch('http://10.0.2.2:4000/getPacientesByFamiliar/' + User.IdUser, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      if (responseData.code === 200) {
+        setListPatient(responseData);
+        setListEstatus(true);
+      }
+    }
+  }
+
+  useEffect(() => {
+    ObtencionListaPaicente();
+  }, [])
+
 
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: 'green' }}></View>
-        <View style={{ flex: 1, backgroundColor: 'red' }}></View>
-        <View style={{ flex: 1, backgroundColor: 'black' }}></View>
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ marginVertical: 30 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('InfoUserSCreen', { User: User })}>
+            <LinearGradient
+              colors={['#00668C', '#D4EAF7']}
+              start={{ x: 1, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              style={StylesHomeSettings.ButtonUser}
+            >
+              <Image source={require('../../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
+              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome: {User.Apellidos}</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+        <View style={StylesHomeSettings.ContainerList}>
+          <LinearGradient
+            colors={['#00668C', '#D4EAF7']}
+            start={{ x: 1, y: 1 }}
+            end={{ x: 0, y: 0 }}
+            style={StylesHomeSettings.ContainerFlatList}
+          >
+            {
+              ListEstatus && (
+                <View style={{ alignItems: 'center', marginTop: 5, }}>
+                  <View style={{ marginVertical: 10 }}>
+                    <Text style={{ fontSize: 40, color: '#FFFEFB' }}>Patient List</Text>
+                  </View>
+                  <FlatList
+                    data={ListPatient?.listpaciente.pacientes}
+                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} />}
+                    keyExtractor={item => item.IdPaciente.toString()}
+                  />
+                </View>)
+            }
+          </ LinearGradient>
+        </View>
+        <View style={{ flex: 1, marginTop: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+            <LinearGradient
+              colors={['#941C20', '#FB3D61']}
+              start={{ x: 1, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              style={StylesHomeSettings.ButtomGeneral}
+            >
+              <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Exit</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </View>
       {ChatVisible && (<View style={{
         position: 'absolute',

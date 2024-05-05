@@ -137,3 +137,16 @@ export interface ListconsultsClass {
     consultas: Consulta[];
     total:     number;
 }
+
+export interface ListParient {
+    code:         number;
+    error:        null;
+    listpaciente: Listpaciente;
+    message:      string;
+    status:       string;
+}
+
+export interface Listpaciente {
+    pacientes: Paciente[];
+    total:     number;
+}

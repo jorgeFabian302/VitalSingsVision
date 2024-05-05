@@ -39,7 +39,7 @@ export const InfoScreen = () => {
               style={StylesHomeSettings.ButtonUser}
             >
               <Image source={require('../Image/User.png')} style={StylesHomeSettings.UserContainer} resizeMode='contain' />
-              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome Dr: {UserD.Apellidos}</Text>
+              <Text style={{ fontSize: 25, marginTop: 10, color: '#FFFEFB' }}>Welcome: {UserD.Apellidos}</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
