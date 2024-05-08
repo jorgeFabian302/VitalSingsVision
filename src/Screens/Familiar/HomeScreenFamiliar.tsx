@@ -78,7 +78,7 @@ export const HomeScreenFamiliar = ({ User }: Props) => {
                   </View>
                   <FlatList
                     data={ListPatient?.listpaciente.pacientes}
-                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} />}
+                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} FlagCreateConsult={false} />}
                     keyExtractor={item => item.IdPaciente.toString()}
                   />
                 </View>)

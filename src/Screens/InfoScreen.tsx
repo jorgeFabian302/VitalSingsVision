@@ -15,6 +15,7 @@ export const InfoScreen = () => {
   const [Listconsults, setListconsults] = useState<Listconsults>();
   const [UserP, setUserP] = useState<Paciente>(params.UserP);
   const [UserD, setUserD] = useState<Data>(params.UserD);
+  const [FlagConsult, setFlagConsult] = useState(params.flagCreateConsult);
   const [ChatVisible, setChatVisible] = useState(false);
   const [ListEstatus, setListEstatus] = useState(false);
 
@@ -52,9 +53,9 @@ export const InfoScreen = () => {
           >
             {
               ListEstatus && (
-                <View style={{ alignItems: 'center', marginTop: 3 }}>
+                <View style={{ alignItems: 'center', marginTop: 3, flex: 1 }}>
                   <TouchableOpacity style={StylesHomeSettings.ContainerFlatListConsult} onPress={() => navigation.navigate('InfoUserSCreen', { User: UserP.data })}>
-                    <View style={{ marginVertical:10 }}>
+                    <View style={{ marginVertical: 10 }}>
                       <Image source={require('../Image/User.png')} style={StylesHomeSettings.ParientContainer} resizeMode='contain' />
                     </View>
                     <View style={{ marginHorizontal: 20, flexDirection: 'row' }}>
@@ -70,7 +71,25 @@ export const InfoScreen = () => {
                   </View>
                 </View>)
             }
-          </ LinearGradient>
+            {
+              FlagConsult && (
+                <View style={{ alignItems: 'center' }}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('ConsultScreen', { UserD: UserD, UserP: UserP })}
+                  >
+                    <LinearGradient
+                      colors={['#9B9A97', '#A8A8A8']}
+                      start={{ x: 1, y: 1 }}
+                      end={{ x: 0, y: 0 }}
+                      style={{ ...StylesHomeSettings.ButtomGeneral, width: 360 }}
+                    >
+                      <Text style={{ fontSize: 20, color: '#FFFEFB' }}>Create Consult</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </View>
+              )
+            }
+          </LinearGradient>
         </View>
         <View style={{ flex: 1, marginTop: 10 }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>

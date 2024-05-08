@@ -41,8 +41,7 @@ export const StylesHomeSettings = StyleSheet.create({
     ContainerFlatList: {
         alignItems: 'center',
         borderRadius: 10,
-        flex: 1,
-        width: Dimensions.get('window').width * 0.95, // Utiliza porcentaje en lugar de dimensiones fijas
+        height:'100%',
     },
     ContainerList: {
         flex: 3,

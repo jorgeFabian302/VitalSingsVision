@@ -72,7 +72,7 @@ export const HomeScreenDoctor = ({ User }: Props) => {
                   </View>
                   <FlatList
                     data={ListPatient?.listpatient.pacientes}
-                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} />}
+                    renderItem={({ item }) => <PatientItem UserP={item} UserD={User} FlagCreateConsult={true}/>}
                     keyExtractor={item => item.IdPaciente.toString()}
                   />
                 </View>)

@@ -6,10 +6,11 @@ import { RootStackParams } from '../../../Navigator/NavigatorControler'
 
 interface Props {
   UserP: Paciente,
-  UserD: Data
+  UserD: Data,
+  FlagCreateConsult: boolean,
 }
 
-export const PatientItem = ({ UserP, UserD }: Props) => {
+export const PatientItem = ({ UserP, UserD, FlagCreateConsult }: Props) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const [Estatus, setEstatus] = useState(false);
   const [ListconsultsP, setListconsultsP] = useState<Listconsults>();
@@ -41,7 +42,7 @@ export const PatientItem = ({ UserP, UserD }: Props) => {
   return (
     <TouchableOpacity
       style={StylesSheet.ContinerTouchableOpacity}
-      onPress={() => navigation.navigate('InfoScreen', { UserP: UserP, UserD: UserD, Listconsults: ListconsultsP })}>
+      onPress={() => navigation.navigate('InfoScreen', { UserP: UserP, UserD: UserD, Listconsults: ListconsultsP, flagCreateConsult: FlagCreateConsult })}>
       <View style={StylesSheet.Container}>
         <View style={StylesSheet.Containerimg}>
           <Image source={require('../../../Image/User.png')} style={StylesSheet.img} resizeMode='contain' />
