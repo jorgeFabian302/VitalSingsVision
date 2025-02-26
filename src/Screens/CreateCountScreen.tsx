@@ -4,13 +4,14 @@ import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from 'reac
 
 import { Picker } from '@react-native-picker/picker';
 import { Modal } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { Calendar, DateData } from 'react-native-calendars';
 import { LinearGradient } from 'react-native-linear-gradient';
 
 import { StylesSettings } from '../Styles/StylesSettings';
 import { PresentationBox } from '../Components/PresentationBox';
 import { RootStackParams } from '../Navigator/NavigatorControler';
 import { TotalPaciente } from '../interfaces/interfaces';
+import { assignRols, createNewDoctor, createNewFamiliar, createNewPaciente, createNewUser, getNumberOfUsers } from '../Components/Api';
 
 
 
@@ -59,96 +60,54 @@ export const CreateCountScreen = () => {
   };
 
   const CrearUsuario = async () => {
-    if (ValuesPaciente || ValuesFamiliar || ValuesDoctor) {
-      //Evaluamos que fueron escrito todos los dotos necesarios
-      if (Nombre != "" && Apellidos != "" && Password != "" && Correo != "" && Cedula != "") {
-        const responsetemp = await globalThis.fetch('http://10.0.2.2:4000/user/count', {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-        });
-        const responsecountuser = await responsetemp.json();
-        console.log(responsecountuser);
-        if (responsecountuser != undefined) {
-          setCountPaciente(responsecountuser);
-          const FechaNacimiento = new Date(Fecha);
-          const MesNacimiento = FechaNacimiento.getMonth();
-          const DiaNacimiento = FechaNacimiento.getDate();
-          //Cremamos la llave correpondiente para la creacion del usuario
-          if (CountPaciente != undefined) {
-            if (CountPaciente.total <= 9) {
-              setIdUser("0" + String(CountPaciente?.total) + "-U" + Nombre[0].toUpperCase() + Nombre[1] + Apellidos[0].toUpperCase() + Apellidos[1] + String(DiaNacimiento) + String(MesNacimiento));
-            } else {
-              setIdUser(String(CountPaciente?.total) + "-U" + Nombre[0].toUpperCase() + Nombre[1] + Apellidos[0].toUpperCase() + Apellidos[1] + String(DiaNacimiento) + String(MesNacimiento));
-            }
-            //Mandamos a llamar a la respectiva API para hacer la inserccion de lso datos dentro de la tabla User
-            const response = await globalThis.fetch('http://10.0.2.2:4000/user/Insert', {
-              method: 'POST',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ IdUser: IdUser, Nombre: Nombre.toUpperCase(), Apellidos: Apellidos.toUpperCase(), Correo: Correo, FechaNacimiento: Fecha, FotoPerfil: '', Password: Password }),
-            });
-            const responseData = await response.json();
-            let responseData2 = undefined;
-            if (ValuesDoctor) {
-              const response2 = await globalThis.fetch('http://10.0.2.2:4000/Doctor/Insert', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ IdDoctor: IdUser, Cedula: Cedula.toUpperCase(), Especialidad: Especialidad.toUpperCase() }),
-              });
-              responseData2 = await response2.json();
-            }
-            else if (ValuesPaciente) {
-              const response2 = await globalThis.fetch('http://10.0.2.2:4000/Paciente/Insert', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ IdPaciente: IdUser, NumeroSeguroSocial: Cedula }),
-              });
-              responseData2 = await response2.json();
-            }
-            else {
-              const response2 = await globalThis.fetch('http://10.0.2.2:4000/Familiar/Insert', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ IdFamiliar: IdUser, NumeroTelefono: Cedula }),
-              });
-              responseData2 = await response2.json();
-            }
-            const response3 = await globalThis.fetch('http://10.0.2.2:4000/Roles/Insert', {
-              method: 'POST',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ IdUser: IdUser, RolPaciente: ValuesPaciente, RolDoctor:ValuesDoctor, RolFamiliar:ValuesFamiliar }),
-            });
-            const responseData3 = await response3.json();
-            if (responseData2.code === 201 && responseData3.code === 201) {
-              Alert.alert("Creación de usuario nuevo", responseData2.message);
-              navigation.navigate('LoginScreen');
-            }
-          }
-        }
+    let usuarioSelecccionado = ValuesPaciente || ValuesFamiliar || ValuesDoctor;
+    if (!usuarioSelecccionado) {
+      Alert.alert("Falta de información", "No se selecciono un tipo de usuario");
+      return;
+    }
+    //Evaluamos que fueron escrito todos los datos necesarios
+    if (Nombre === "" || Apellidos === "" || Password === "" || Correo === "" || Cedula === "") {
+      Alert.alert("Falta de información", "No se llenaron todos los campos");
+      return;
+    }
+    let responsetemp =  await getNumberOfUsers('/user/count');
+    //Checamos que si se aya regresado una respuesta
+    if (responsetemp === null) {
+      let responsetemp =  await getNumberOfUsers('/user/count');
+    }
+    if(responsetemp === null){
+      Alert.alert("sevidores no contactados","no se tiene respuesta de los servidores");
+      return;
+    }
+    setCountPaciente(responsetemp);
+    const FechaNacimiento = new Date(Fecha);
+    const MesNacimiento = FechaNacimiento.getMonth()+1;
+    const DiaNacimiento = FechaNacimiento.getDate()+1;
+    //Cremamos la llave correpondiente para la creacion del usuario
+    if (CountPaciente != null) {
+      if (CountPaciente.total <= 9) {
+        setIdUser("0" + String(CountPaciente?.total) + "-U" + Nombre[0].toUpperCase() + Nombre[1] + Apellidos[0].toUpperCase() + Apellidos[1] + String(DiaNacimiento) + String(MesNacimiento));
+      } else {
+        setIdUser(String(CountPaciente?.total) + "-U" + Nombre[0].toUpperCase() + Nombre[1] + Apellidos[0].toUpperCase() + Apellidos[1] + String(DiaNacimiento) + String(MesNacimiento));
+      }
+      //Mandamos a llamar a la respectiva API para hacer la inserccion de lso datos dentro de la tabla User
+      const responseData =  await createNewUser(IdUser,Nombre,Apellidos,Correo,Fecha,Password);
+      let responseData2 = undefined;
+      if (ValuesDoctor) {
+        responseData2 = await  createNewDoctor(IdUser,Cedula,Especialidad);
+      }
+      else if (ValuesPaciente) {
+        responseData2 = await  createNewPaciente(IdUser,Cedula);
       }
       else {
-        Alert.alert("Falta de información", "No se llenaron todos los campos");
+        responseData2 = await  createNewFamiliar(IdUser,Cedula);
       }
-    }
-    else {
-      Alert.alert("Falta de información", "No se selecciono un tipo de usuario");
+      const responseData3 = await assignRols(IdUser,ValuesPaciente,ValuesDoctor,ValuesFamiliar);
+
+      if (responseData2.code === 201 && responseData3.code === 201) {
+        Alert.alert("Creación de usuario nuevo", responseData2.message);
+        navigation.navigate('LoginScreen');
+      }
     }
   }
 
@@ -193,7 +152,7 @@ export const CreateCountScreen = () => {
           <Modal visible={ShowCalendar} animationType='fade'>
             <Calendar
               style={{ borderRadius: 10, elevation: 5, margin: 40 }}
-              onDayPress={date => {
+              onDayPress={(date: DateData) => {
                 setFecha(date.dateString)
                 setShowCalendar(false)
               }}

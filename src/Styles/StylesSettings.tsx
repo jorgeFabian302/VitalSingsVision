@@ -33,6 +33,7 @@ export const StylesSettings = StyleSheet.create({
     borderRadius: 30,
     paddingStart: 30,
     backgroundColor: '#F5F4F1',
+    color:'black',
   },
   InputBox1:{
     height: 50,
@@ -42,6 +43,7 @@ export const StylesSettings = StyleSheet.create({
     borderRadius: 30,
     paddingStart: 30,
     backgroundColor: '#F5F4F1',
+    color:'black',
   },
   ContainerButton:{
     flex: 1,
